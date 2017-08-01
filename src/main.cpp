@@ -15,6 +15,8 @@
 #include "engine/core/simple_engine.h"
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 
 int main()
@@ -40,6 +42,9 @@ int main()
         // Main Loop
         while(!glfwWindowShouldClose(window))
         {
+        	// Startcycle time
+			auto startCycleTime = std::chrono::high_resolution_clock::now();
+
             // Catch events
             glfwPollEvents();
 
@@ -51,6 +56,9 @@ int main()
 
             // Swap buffers
             glfwSwapBuffers(window);
+
+            // Timeout to get no more than 60 fps
+            std::this_thread::sleep_until(startCycleTime + std::chrono::microseconds(16667));
         }
 
         glfwTerminate();
