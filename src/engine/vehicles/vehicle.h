@@ -5,13 +5,13 @@
 namespace vehicle{
 
 
-class Vehical
+class Vehicle
 {
 public:
 
 	virtual void step() = 0;
 
-	virtual ~Vehical() {}
+	virtual ~Vehicle() {}
 };
 
 

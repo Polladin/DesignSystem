@@ -4,6 +4,7 @@
 #include "engine/core/engine.h"
 
 #include "engine/tools/calc_fps.h"
+#include "engine/map/map.h"
 
 #include <memory>
 #include <iostream>
@@ -17,6 +18,10 @@ namespace engine{
  */
 class SimpleEngine : public Engine
 {
+public:
+    const size_t MAX_X = 10;
+    const size_t MAX_Y = 10;
+
 public:
 
     SimpleEngine();
@@ -41,6 +46,8 @@ private:
     std::unique_ptr<CalcFps> fpsCalculator;
 
     std::shared_ptr<mediator::Mediator> mediator;
+
+    std::unique_ptr<map::Map> p_mapObj;
 };
 
 

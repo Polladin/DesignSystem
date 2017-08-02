@@ -27,6 +27,14 @@ set(SRC src/main.cpp
         
         src/graphics/tools/draw_fps.h
         src/graphics/tools/draw_fps.cpp
+
+        src/engine/map/map.h
+        src/engine/map/map.cpp
+
+        src/engine/vehicles/action_object.h
+        src/engine/vehicles/vehicle.h
+        src/engine/vehicles/vehicle_unit.h
+        src/engine/vehicles/vehicle_unit.cpp
         )
 
 add_executable(FactoryGL ${SRC})
