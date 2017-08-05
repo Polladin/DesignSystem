@@ -2,7 +2,7 @@
 
 #include "calc_fps.h"
 
-#include "engine/core/engine.h"
+#include "event_machine/event_machine.h"
 
 #include <iostream>
 
@@ -10,9 +10,9 @@
 namespace engine{
 
 
-CalcFps::CalcFps(Engine * parent_engine)
-    : prevTimePoint { t_time::now() }
-    , p_engine(parent_engine)
+CalcFps::CalcFps( eventmachine::EventMachine * i_eventMachine )
+    : prevTimePoint  { t_time::now() }
+    , p_eventMachine { i_eventMachine }
 {}
 
 
@@ -36,8 +36,8 @@ void CalcFps::step()
           / (float(elapsed_interval.count()) * decltype(elapsed_interval)::period::num);
 
     // Notify a subscriber
-    if (p_engine)
-        p_engine->on_update_fps(fps);
+    if (p_eventMachine)
+        p_eventMachine->send_event(eventmachine::events_list::UPDATE_FPS);
 
     // Reset counter and previous time stamp
     framesShown = 0;

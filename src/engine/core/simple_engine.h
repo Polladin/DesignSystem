@@ -3,13 +3,25 @@
 
 #include "engine/core/engine.h"
 
-#include "engine/tools/calc_fps.h"
-
 #include <memory>
 #include <iostream>
 
 
+namespace eventmachine{
+
+
+// Forward declaration
+class EventMachine;
+
+
+}//namespace eventmachine
+
+
 namespace engine{
+
+
+// Forward declaration
+class CalcFps;
 
 
 /**
@@ -19,28 +31,22 @@ class SimpleEngine : public Engine
 {
 public:
 
-    SimpleEngine();
+    SimpleEngine(std::shared_ptr<eventmachine::EventMachine> & i_eventMachine);
 
     // do a STEP
     void step() override;
 
     // get fps
-    float get_fps() const override { return fpsCalculator->get_fps(); }
-
-    //
-    virtual void on_update_fps(float fps) { mediator->on_update_fps(fps); }
-
-    //
-    virtual mediator::Mediator * get_mediator() { return mediator.get(); }
+    float get_fps() const override;
 
     // Destructor
     virtual ~SimpleEngine() {std::cout << "Dstor SimpleEngine" << std::endl;}
 
 private:
 
-    std::unique_ptr<CalcFps> fpsCalculator;
+    std::shared_ptr<CalcFps> fpsCalculator;
 
-    std::shared_ptr<mediator::Mediator> mediator;
+    std::shared_ptr<eventmachine::EventMachine> eventMachine;
 };
 
 

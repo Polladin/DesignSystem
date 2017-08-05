@@ -10,7 +10,8 @@
 
 #include "graphics/gl_functions/gl_initialization.h"
 #include "graphics/tools/draw_fps.h"
-//#include "graphics/observers.h"
+#include "event_machine/event_machine.h"
+#include "graphics/mediator.h"
 
 #include "engine/core/simple_engine.h"
 
@@ -25,11 +26,16 @@ int main()
 
         std::cout << "Start the main loop ..." << std::endl;
 
+        auto p_eventMachine = std::make_shared<eventmachine::EventMachine>();
+
         // Engine
-        engine::SimpleEngine engineObj;
+        engine::SimpleEngine engineObj(p_eventMachine);
 
         // Get Mediator
-        mediator::Mediator * p_mediatorObj = engineObj.get_mediator();
+        auto p_mediatorObj = std::make_shared<mediator::Mediator>(&engineObj);
+
+        // Add receiver in Event Machine
+        p_eventMachine->add_receiver(p_mediatorObj.get());
 
         // Draw Fps
         std::shared_ptr<mediator::ObserverCalcFps> drawFps (new graphics::DrawFps);

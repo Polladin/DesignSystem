@@ -21,6 +21,11 @@ set(SRC src/main.cpp
         src/graphics/gl_functions/keys_actions.h
         src/graphics/gl_functions/keys_actions.cpp
         
+        src/event_machine/event_machine.h
+        src/event_machine/event_machine.cpp
+        src/event_machine/event_receiver.h
+        src/event_machine/events_list.h
+        
         src/graphics/mediator.h
         src/graphics/mediator.cpp
         src/graphics/observers.h

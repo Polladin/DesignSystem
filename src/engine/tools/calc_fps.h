@@ -8,10 +8,17 @@
 #include <functional>
 #include <iostream>
 
-namespace engine{
+
+namespace eventmachine{
+
 
 // Forward declaration
-class Engine;
+class EventMachine;
+
+
+}//namespace eventmachine
+
+namespace engine{
 
 
 /**
@@ -31,7 +38,7 @@ private:
 
 public:
 
-    CalcFps(Engine * parent_engine = nullptr);
+    CalcFps(eventmachine::EventMachine * i_eventMachine = nullptr);
 
     ~CalcFps() {std::cout << "Dstor CalcFps" << std::endl;}
 
@@ -48,8 +55,7 @@ private:
 
     t_time_point prevTimePoint { t_time::now() };
 
-    Engine * p_engine;
-
+    eventmachine::EventMachine * p_eventMachine { nullptr };
 };
 
 
