@@ -8,13 +8,12 @@
 namespace engine{
 
 
-<<<<<<< HEAD
 SimpleEngine::SimpleEngine(std::shared_ptr<eventmachine::EventMachine> & i_eventMachine)
     : eventMachine { i_eventMachine }
 {
     // Create FPS calculator
     fpsCalculator.reset(new CalcFps(eventMachine.get()));
-=======
+
     // Map initialize
     p_mapObj.reset(new map::Map(MAX_X, MAX_Y));
 
@@ -32,7 +31,6 @@ SimpleEngine::SimpleEngine(std::shared_ptr<eventmachine::EventMachine> & i_event
 
     // Debug
     p_mapObj->print_map();
->>>>>>> 1f611940277455169fd32a9c6ad69aac62dc2bab
 }
 
 

@@ -40,8 +40,6 @@ public:
 
     CalcFps(eventmachine::EventMachine * i_eventMachine = nullptr);
 
-    ~CalcFps() {std::cout << "Dstor CalcFps" << std::endl;}
-
     virtual void step() override;
 
     // Return FPS

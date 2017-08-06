@@ -4,7 +4,13 @@ project(OpenGLgames)
 
 add_definitions(-std=c++1y -Wall)
 
+# Add SOIL lib
+set (SOIL_include /opt/SOIL/include)
+set (SOIL_libs /opt/SOIL/lib/libSOIL.a)
+
+
 include_directories(${PROJECT_SOURCE_DIR}/src)
+
 
 set(SRC src/main.cpp
 
@@ -20,6 +26,9 @@ set(SRC src/main.cpp
         src/graphics/gl_functions/gl_initialization.h
         src/graphics/gl_functions/keys_actions.h
         src/graphics/gl_functions/keys_actions.cpp
+
+        src/graphics/gl_functions/shader_functions.h
+        src/graphics/gl_functions/shader_functions.cpp
         
         src/event_machine/event_machine.h
         src/event_machine/event_machine.cpp
@@ -40,9 +49,13 @@ set(SRC src/main.cpp
         src/engine/vehicles/vehicle.h
         src/engine/vehicles/vehicle_unit.h
         src/engine/vehicles/vehicle_unit.cpp
+        
         )
 
+
 add_executable(FactoryGL ${SRC})
+
+target_include_directories(FactoryGL PUBLIC ${SOIL_include})
 
 target_link_libraries(FactoryGL glfw3 
                                 GLEW 
@@ -52,5 +65,6 @@ target_link_libraries(FactoryGL glfw3
                                 Xcursor 
                                 dl 
                                 GL 
-                                pthread)
+                                pthread
+                                ${SOIL_libs})
 

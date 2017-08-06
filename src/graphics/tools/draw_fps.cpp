@@ -10,7 +10,7 @@ void DrawFps::update_fps(float newFps)
 {
     fps = newFps;
 
-    std::cout << "FPS update : " << fps << std::endl;
+//    std::cout << "FPS update : " << fps << std::endl;
 }
 
 

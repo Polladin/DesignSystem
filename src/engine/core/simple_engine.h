@@ -46,12 +46,6 @@ public:
     // get fps
     float get_fps() const override;
 
-    // On update FPS
-    virtual void on_update_fps(float fps) { mediator->on_update_fps(fps); }
-
-    // Get pointer to mediator
-    virtual mediator::Mediator * get_mediator() { return mediator.get(); }
-
 private:
 
     std::shared_ptr<CalcFps> fpsCalculator;

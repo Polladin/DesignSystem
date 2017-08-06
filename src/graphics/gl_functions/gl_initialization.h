@@ -28,9 +28,16 @@ class GlInitialization
 {
 public:
 
-    static GLFWwindow * opengl_start(bool setUnlimitedFps = false);
+    GlInitialization(bool setUnlimitedFps = false) { window = opengl_start(setUnlimitedFps); }
+
+    GLFWwindow * get_window() { return window; }
+
+    ~GlInitialization() { glfwTerminate(); }
 
 private:
+
+    // Initialize OpenGL libs and create a window
+    GLFWwindow * opengl_start(bool setUnlimitedFps = false);
 
     // Initialize GLFW lib
     static void initialize_glfw();
@@ -43,6 +50,10 @@ private:
 
     // Get width and height from a window
     static std::pair<int, int> get_width_and_height(GLFWwindow * window);
+
+private:
+
+    GLFWwindow * window;
 
 };
 
