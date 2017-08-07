@@ -29,7 +29,10 @@ set(SRC src/main.cpp
 
         src/graphics/gl_functions/shader_functions.h
         src/graphics/gl_functions/shader_functions.cpp
-        
+
+        src/graphics/gl_functions/textures.h
+        src/graphics/gl_functions/textures.cpp
+
         src/event_machine/event_machine.h
         src/event_machine/event_machine.cpp
         src/event_machine/event_receiver.h

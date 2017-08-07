@@ -14,6 +14,7 @@
 #include "graphics/mediator.h"
 #include "graphics/gl_functions/shader_functions.h"
 #include "engine/core/simple_engine.h"
+#include "graphics/gl_functions/textures.h"
 
 #include "SOIL.h"
 
@@ -75,36 +76,14 @@ int main()
 
 
         // ----------------------- Texture ----------------------------------
-        GLuint texture;
-        glGenTextures(1, &texture);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
-
-        int width, height;
-        unsigned char* image = SOIL_load_image("/home/alex/Desktop/container.jpg", &width, &height, 0, SOIL_LOAD_RGB);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-        glGenerateMipmap(GL_TEXTURE_2D);
-        SOIL_free_image_data(image);
-
-        GLuint texture2;
-        glGenTextures(1, &texture2);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2);
-
-//        int width, height;
-        unsigned char* image2 = SOIL_load_image("/home/alex/Desktop/awesomeface.png", &width, &height, 0, SOIL_LOAD_RGB);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image2);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-
-        glBindTexture(GL_TEXTURE_2D, 0);
+        shader::Textures textures;
 
         // ---------------------- Main Loop ---------------------------------------
 
         // Main Loop
         while(!glfwWindowShouldClose(glLib->get_window()))
         {
-            // Startcycle time
+            // Start cycle time
             auto startCycleTime = std::chrono::high_resolution_clock::now();
 
             // Catch events
@@ -119,12 +98,8 @@ int main()
             // Draw our first triangle
             glUseProgram(shaderProgram);
 
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, texture);
-            glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture1"), 0);
-            glActiveTexture(GL_TEXTURE1);
-            glBindTexture(GL_TEXTURE_2D, texture2);
-            glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture2"), 1);
+            textures.set_active(shaderProgram, 0, "container.jpg", "ourTexture1");
+            textures.set_active(shaderProgram, 1, "awesomeface.png", "ourTexture2");
 
 //            glBindTexture(GL_TEXTURE_2D, texture);
             glBindVertexArray(VAO);

@@ -25,11 +25,11 @@ namespace shader{
 
 class Shaders
 {
-    const char * vertexShaderSrcFilePath   = "/home/alex/projects/cpp/OpenGL/CmakeEmpty/src/shaders/simple.vs.glsl";
-    const char * fragmentShaderSrcFilePath = "/home/alex/projects/cpp/OpenGL/CmakeEmpty/src/shaders/simple.fs.glsl";
+    const char * vertexShaderSrcFilePath   = "../src/shaders/simple.vs.glsl";
+    const char * fragmentShaderSrcFilePath = "../src/shaders/simple.fs.glsl";
 
-    const char * vertexShaderSrcFilePathTex   = "/home/alex/projects/cpp/OpenGL/CmakeEmpty/src/shaders/texture.vs.glsl";
-    const char * fragmentShaderSrcFilePathTex = "/home/alex/projects/cpp/OpenGL/CmakeEmpty/src/shaders/texture.fs.glsl";
+    const char * vertexShaderSrcFilePathTex   = "../src/shaders/texture.vs.glsl";
+    const char * fragmentShaderSrcFilePathTex = "../src/shaders/texture.fs.glsl";
 
 public:
 
