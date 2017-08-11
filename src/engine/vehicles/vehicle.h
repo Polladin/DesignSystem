@@ -1,8 +1,13 @@
 
 #pragma once
 
+#include <vector>
+
 
 namespace vehicle{
+
+
+using t_inner_position = std::pair<float, float>;
 
 
 class Vehicle

@@ -37,6 +37,24 @@ bool Slot::add_connect_to_slot(Slot * slot)
     return connectivity->add_new_slot(slot);
 }
 
+void Slot::add_active_object(VehicleUnit * obj)
+{
+    activeObjects.push_back(obj);
+}
+
+bool Slot::del_active_object(VehicleUnit * obj)
+{
+    auto foundIt = std::find(activeObjects.begin(), activeObjects.end(), obj);
+
+    if (foundIt != activeObjects.end())
+    {
+        activeObjects.erase(foundIt);
+        return true;
+    }
+
+    return false;
+}
+
 //                             END Slot
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -60,7 +78,7 @@ Map::Map(size_t i_maxX, size_t i_maxY)
 
         // Init slot
         for (size_t j = 0; j < maxY; ++j)
-            slots[i][j].reset(new Slot());
+            slots[i][j].reset(new Slot(i, j));
     }
 
 }

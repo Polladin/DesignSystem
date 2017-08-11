@@ -3,12 +3,14 @@
 
 #include <vector>
 #include <memory>
+#include <list>
 
 
 namespace map{
 
 
 // Forward declaration
+class VehicleUnit;
 class Slot;
 
 enum class connectivity_type
@@ -52,10 +54,22 @@ class Slot
 {
 public:
 
+    Slot(size_t i_x, size_t i_y)
+        : x {i_x}
+        , y {i_y}
+    {}
+
     bool add_connect_to_slot(Slot * slot);
 
+    void add_active_object(VehicleUnit * obj);
+    bool del_active_object(VehicleUnit * obj);
 public:
     std::unique_ptr<Connectivity> connectivity { nullptr };
+
+    std::list<VehicleUnit*> activeObjects;
+
+    size_t x;
+    size_t y;
 };
 
 
