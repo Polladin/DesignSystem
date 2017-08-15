@@ -37,12 +37,12 @@ bool Slot::add_connect_to_slot(Slot * slot)
     return connectivity->add_new_slot(slot);
 }
 
-void Slot::add_active_object(VehicleUnit * obj)
+void Slot::add_active_object(vehicle::VehicleUnit * obj)
 {
     activeObjects.push_back(obj);
 }
 
-bool Slot::del_active_object(VehicleUnit * obj)
+bool Slot::del_active_object(vehicle::VehicleUnit * obj)
 {
     auto foundIt = std::find(activeObjects.begin(), activeObjects.end(), obj);
 
@@ -122,11 +122,17 @@ void Map::update_neighbor_connectivity(size_t x, size_t y, connectivity_type con
 
 void Map::print_map()
 {
+    std::cout << "\nStart map dumping ...\n";
+
     for (size_t i = 0; i < maxX; ++i)
     {
         for (size_t j = 0; j < maxY; ++j)
         {
-            if (slots[i][j]->connectivity.get() != nullptr)
+            if (!slots[i][j]->activeObjects.empty())
+            {
+                std::cout << "A";
+            }
+            else if (slots[i][j]->connectivity.get() != nullptr)
             {
                 if (slots[i][j]->connectivity->connType == connectivity_type::LEFT)
                     std::cout << "<";

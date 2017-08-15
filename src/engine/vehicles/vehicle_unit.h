@@ -43,6 +43,9 @@ public:
     void set_vx(float v) { vx = v; }
     void set_vy(float v) { vy = v; }
 
+    void set_pos_x(float x) {pos.first = x;};
+    void set_pos_y(float y) {pos.second = y;};
+
 private:
 
     int storage { 0 };

@@ -34,8 +34,10 @@ SimpleEngine::SimpleEngine(std::shared_ptr<eventmachine::EventMachine> & i_event
     p_mapObj->print_map();
 
     // Create Active Objects
-    auto * activeObject = new VehicleUnit();
-    activeObjects.emplace_back(activeObject, std::make_pair(p_mapObj->slots[5][5], 0));
+    vehicle::VehicleUnit * activeObject = new vehicle::VehicleUnit();
+    activeObject->set_vx(0.01);
+
+    activeObjects.push_back(std::pair<t_vehicle_pointer, t_slot_info>(activeObject, std::pair<map::Slot*, int>(p_mapObj->slots[5][5].get(), 0)));
     p_mapObj->slots[5][5]->add_active_object(activeObject);
 }
 
@@ -48,7 +50,10 @@ void SimpleEngine::step_active()
 
         // Change slot if move across a bound
         if (activeObj.first->is_out_of_bound())
+        {
             active_object_change_slot(activeObj);
+            p_mapObj->print_map();
+        }
 
     }
 }
@@ -56,8 +61,8 @@ void SimpleEngine::step_active()
 
 void SimpleEngine::active_object_change_slot(t_vehicle_info & activeObj)
 {
-    vehicle::VehicleUnit::t_border xBound = activeObj->is_out_of_x_bound();
-    vehicle::VehicleUnit::t_border yBound = activeObj->is_out_of_y_bound();
+    vehicle::VehicleUnit::t_border xBound = activeObj.first->is_out_of_x_bound();
+    vehicle::VehicleUnit::t_border yBound = activeObj.first->is_out_of_y_bound();
 
     // X bound
 
@@ -65,8 +70,8 @@ void SimpleEngine::active_object_change_slot(t_vehicle_info & activeObj)
     {
         if (activeObj.second.first->x != 0)
         {
-            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y].del_active_object(activeObj.first);
-            p_mapObj->slots[activeObj.second.first->x - 1][activeObj.second.first->y].add_active_object(activeObj.first);
+            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y]->del_active_object(activeObj.first);
+            p_mapObj->slots[activeObj.second.first->x - 1][activeObj.second.first->y]->add_active_object(activeObj.first);
 
             activeObj.second.first = p_mapObj->slots[activeObj.second.first->x - 1][activeObj.second.first->y].get();
             activeObj.first->step_to_next_slot(vehicle::VehicleUnit::t_border::LEFT);
@@ -74,6 +79,7 @@ void SimpleEngine::active_object_change_slot(t_vehicle_info & activeObj)
         else
         {
             activeObj.first->set_vx(0);
+            activeObj.first->set_pos_x(-1.0f);
         }
     }
 
@@ -81,8 +87,8 @@ void SimpleEngine::active_object_change_slot(t_vehicle_info & activeObj)
     {
         if (activeObj.second.first->x +1 < p_mapObj->maxX)
         {
-            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y].del_active_object(activeObj.first);
-            p_mapObj->slots[activeObj.second.first->x + 1][activeObj.second.first->y].add_active_object(activeObj.first);
+            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y]->del_active_object(activeObj.first);
+            p_mapObj->slots[activeObj.second.first->x + 1][activeObj.second.first->y]->add_active_object(activeObj.first);
 
             activeObj.second.first = p_mapObj->slots[activeObj.second.first->x + 1][activeObj.second.first->y].get();
             activeObj.first->step_to_next_slot(vehicle::VehicleUnit::t_border::RIGHT);
@@ -90,6 +96,7 @@ void SimpleEngine::active_object_change_slot(t_vehicle_info & activeObj)
         else
         {
             activeObj.first->set_vx(0);
+            activeObj.first->set_pos_x(1.0f);
         }
     }
     // Y bound
@@ -98,8 +105,8 @@ void SimpleEngine::active_object_change_slot(t_vehicle_info & activeObj)
     {
         if (activeObj.second.first->y + 1 < p_mapObj->maxY)
         {
-            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y].del_active_object(activeObj.first);
-            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y + 1].add_active_object(activeObj.first);
+            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y]->del_active_object(activeObj.first);
+            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y + 1]->add_active_object(activeObj.first);
 
             activeObj.second.first = p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y + 1].get();
             activeObj.first->step_to_next_slot(vehicle::VehicleUnit::t_border::TOP);
@@ -107,6 +114,7 @@ void SimpleEngine::active_object_change_slot(t_vehicle_info & activeObj)
         else
         {
             activeObj.first->set_vy(0);
+            activeObj.first->set_pos_y(1.0f);
         }
     }
 
@@ -114,8 +122,8 @@ void SimpleEngine::active_object_change_slot(t_vehicle_info & activeObj)
     {
         if (activeObj.second.first->y != 0)
         {
-            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y].del_active_object(activeObj.first);
-            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y - 1].add_active_object(activeObj.first);
+            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y]->del_active_object(activeObj.first);
+            p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y - 1]->add_active_object(activeObj.first);
 
             activeObj.second.first = p_mapObj->slots[activeObj.second.first->x][activeObj.second.first->y - 1].get();
             activeObj.first->step_to_next_slot(vehicle::VehicleUnit::t_border::BOT);
@@ -123,6 +131,7 @@ void SimpleEngine::active_object_change_slot(t_vehicle_info & activeObj)
         else
         {
             activeObj.first->set_vy(0);
+            activeObj.first->set_pos_y(-1.0f);
         }
     }
 }

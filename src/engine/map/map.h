@@ -5,12 +5,21 @@
 #include <memory>
 #include <list>
 
+#include "engine/common.h"
+
+
+namespace vehicle{
+
+// Forward declaration
+class VehicleUnit;
+
+}//
+
 
 namespace map{
 
 
 // Forward declaration
-class VehicleUnit;
 class Slot;
 
 enum class connectivity_type
@@ -32,7 +41,11 @@ public:
 
     Connectivity(connectivity_type i_type)
         : connType { i_type }
-    {}
+    {
+        // Base connectivity initialization
+        for (size_t i = 0; i < connectivityBase.size(); ++i)
+            connectivityBase[i] = nullptr;
+    }
 
 
     bool add_new_slot(Slot * slot);
@@ -44,6 +57,9 @@ public:
 
     // type of connectivity
     connectivity_type connType { connectivity_type::UNDEFINED };
+
+    //
+    std::array<Slot *, common::connectivity_type::COUNT_CONNECTIVITY_TYPES> connectivityBase;
 };
 
 
@@ -61,12 +77,13 @@ public:
 
     bool add_connect_to_slot(Slot * slot);
 
-    void add_active_object(VehicleUnit * obj);
-    bool del_active_object(VehicleUnit * obj);
+    void add_active_object(vehicle::VehicleUnit * obj);
+    bool del_active_object(vehicle::VehicleUnit * obj);
+
 public:
     std::unique_ptr<Connectivity> connectivity { nullptr };
 
-    std::list<VehicleUnit*> activeObjects;
+    std::list<vehicle::VehicleUnit*> activeObjects;
 
     size_t x;
     size_t y;
