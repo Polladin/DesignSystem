@@ -8,8 +8,11 @@ add_definitions(-std=c++1y -Wall)
 set (SOIL_include /opt/SOIL/include)
 set (SOIL_libs /opt/SOIL/lib/libSOIL.a)
 
+# Imported lib
+set (Imported_include ${PROJECT_SOURCE_DIR}/import/include)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
+
 
 
 set(SRC src/main.cpp
@@ -58,7 +61,8 @@ set(SRC src/main.cpp
 
 add_executable(FactoryGL ${SRC})
 
-target_include_directories(FactoryGL PUBLIC ${SOIL_include})
+target_include_directories(FactoryGL PUBLIC ${SOIL_include}
+                                            ${Imported_include} )
 
 target_link_libraries(FactoryGL glfw3 
                                 GLEW 

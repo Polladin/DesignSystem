@@ -42,9 +42,9 @@ public:
     Connectivity(connectivity_type i_type)
         : connType { i_type }
     {
-        // Base connectivity initialization
-        for (size_t i = 0; i < connectivityBase.size(); ++i)
-            connectivityBase[i] = nullptr;
+//        // Base connectivity initialization
+//        for (size_t i = 0; i < connectivityBase.size(); ++i)
+//            connectivityBase[i] = nullptr;
     }
 
 
@@ -59,7 +59,7 @@ public:
     connectivity_type connType { connectivity_type::UNDEFINED };
 
     //
-    std::array<Slot *, common::connectivity_type::COUNT_CONNECTIVITY_TYPES> connectivityBase;
+//    std::array<Slot *, common::connectivity_type::COUNT_CONNECTIVITY_TYPES> connectivityBase;
 };
 
 
