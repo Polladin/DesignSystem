@@ -108,7 +108,7 @@ int main()
             // Draw our first triangle
             glUseProgram(shaderProgram);
 
-            rotation += 1;
+            rotation += 0.1;
 
             glm::mat4 trans;
             trans = glm::rotate(trans, glm::radians(rotation), glm::vec3(0.0, 0.0, 1.0));

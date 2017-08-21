@@ -55,6 +55,8 @@ set(SRC src/main.cpp
         src/engine/vehicles/vehicle.h
         src/engine/vehicles/vehicle_unit.h
         src/engine/vehicles/vehicle_unit.cpp
+
+        src/engine/buildings/factory.cpp
         
         )
 

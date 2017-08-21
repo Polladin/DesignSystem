@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <algorithm>
 
+#include "engine/buildings/factory.h"
+
 #include <iostream>
 
 
@@ -28,6 +30,15 @@ bool Connectivity::add_new_slot(Slot * slot)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //                               Slot
+
+bool Slot::is_movable()
+{
+    for (const auto & ob : objects)
+        if (!ob->is_movable())
+            return false;
+
+    return true;
+};
 
 bool Slot::add_connect_to_slot(Slot * slot)
 {
@@ -62,6 +73,8 @@ bool Slot::del_active_object(vehicle::VehicleUnit * obj)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //                               Map
+
+Map * Map::p_map {nullptr};
 
 Map::Map(size_t i_maxX, size_t i_maxY)
     : maxX { i_maxX }

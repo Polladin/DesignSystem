@@ -13,6 +13,15 @@ void Factory::step()
 		--count_in;
 		++count_out;
 	}
+
+	++stepCount;
+
+	if (stepCount % 60)
+    {
+        // produce a new Action Object
+
+    }
+
 }
 
 
@@ -43,6 +52,8 @@ int Factory::push(int amount)
 	if (maxPushByStep)
 
 	count_in += amount;
+
+    return 0;
 }
 
 

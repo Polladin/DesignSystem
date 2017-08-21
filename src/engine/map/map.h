@@ -8,6 +8,14 @@
 #include "engine/common.h"
 
 
+namespace objects{
+
+// Forward declaration
+class Build;
+
+}//namespace objects
+
+
 namespace vehicle{
 
 // Forward declaration
@@ -75,10 +83,15 @@ public:
         , y {i_y}
     {}
 
+    //
+    bool is_movable();
+
     bool add_connect_to_slot(Slot * slot);
 
     void add_active_object(vehicle::VehicleUnit * obj);
     bool del_active_object(vehicle::VehicleUnit * obj);
+
+    void add_object(objects::Build * build) { objects.push_back(build); }
 
 public:
     std::unique_ptr<Connectivity> connectivity { nullptr };
@@ -87,6 +100,8 @@ public:
 
     size_t x;
     size_t y;
+
+    std::vector<objects::Build *> objects;
 };
 
 
@@ -95,16 +110,38 @@ public:
  */
 class Map
 {
+    const static unsigned MAP_MAX_X { 10 };
+    const static unsigned MAP_MAX_Y { 10 };
+
 public:
 
-    Map(size_t i_maxX, size_t i_maxY);
+    static Map* get_instance()
+    {
+        if (p_map)
+            return p_map;
+
+        p_map = new Map(MAP_MAX_X, MAP_MAX_Y);
+        return p_map;
+    }
+
+    ~Map()
+    {
+        delete p_map;
+    }
 
     bool place_connectivity(size_t x, size_t y, connectivity_type connType);
 
     //
     void print_map();
 
+
 private:
+
+    Map(size_t i_maxX, size_t i_maxY);
+
+private:
+
+    static Map * p_map;
 
     //
     void update_neighbor_connectivity(size_t x, size_t y, connectivity_type connType);
@@ -117,6 +154,7 @@ public:
 
     std::vector<std::vector<std::unique_ptr<Slot>>> slots;
 };
+
 
 
 }//namespace map

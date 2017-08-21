@@ -13,6 +13,8 @@ public:
 
 	virtual ~Build() {}
 
+	virtual bool is_movable() { return false; }
+
 };
 
 
