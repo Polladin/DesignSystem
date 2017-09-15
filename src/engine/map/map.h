@@ -16,6 +16,14 @@ class Build;
 }//namespace objects
 
 
+namespace objects{
+
+// Forward declaration
+class Build;
+
+}//namespace objects
+
+
 namespace vehicle{
 
 // Forward declaration
@@ -90,6 +98,8 @@ public:
 
     void add_active_object(vehicle::Vehicle * obj);
     bool del_active_object(vehicle::Vehicle * obj);
+
+    void add_object(objects::Build * build) { objects.push_back(build); }
 
     void add_object(objects::Build * build) { objects.push_back(build); }
 

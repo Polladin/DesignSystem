@@ -37,7 +37,6 @@ set (Imported_include ${PROJECT_SOURCE_DIR}/import/include)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
-
 ################### FactoryGL ##########################################
 
 add_executable(FactoryGL ${FACTORY_GL_SRC} ${FACTORY_GL_HEADER})
