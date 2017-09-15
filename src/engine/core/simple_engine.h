@@ -56,6 +56,8 @@ public:
 
 private:
 
+    void add_example1();
+
     void step_active();
 
     void active_object_change_slot(t_vehicle_info & activeObj);
@@ -66,9 +68,12 @@ private:
 
     std::shared_ptr<eventmachine::EventMachine> eventMachine;
 
-    std::unique_ptr<map::Map> p_mapObj;
+//    std::unique_ptr<map::Map> p_mapObj;
+
+    map::Map * p_map;
 
     std::vector<t_vehicle_info> activeObjects;
+    std::vector<std::shared_ptr<objects::Build>> objects;
 };
 
 

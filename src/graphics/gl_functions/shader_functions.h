@@ -25,11 +25,11 @@ namespace shader{
 
 class Shaders
 {
-    const char * vertexShaderSrcFilePath   = "../src/shaders/simple.vs.glsl";
-    const char * fragmentShaderSrcFilePath = "../src/shaders/simple.fs.glsl";
+    const char * vertexShaderSrcFilePath   = SRC_WITH_SHADERS "/simple.vs.glsl";
+    const char * fragmentShaderSrcFilePath = SRC_WITH_SHADERS "/simple.fs.glsl";
 
-    const char * vertexShaderSrcFilePathTex   = "../src/shaders/texture.vs.glsl";
-    const char * fragmentShaderSrcFilePathTex = "../src/shaders/texture.fs.glsl";
+    const char * vertexShaderSrcFilePathTex   = SRC_WITH_SHADERS "/texture.vs.glsl";
+    const char * fragmentShaderSrcFilePathTex = SRC_WITH_SHADERS "/texture.fs.glsl";
 
 public:
 

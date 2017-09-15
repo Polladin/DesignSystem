@@ -13,7 +13,7 @@ class PartyObserver
 {
 public:
 
-    void handle_del_event(Party * party) = 0;
+    virtual void handle_del_event(Party * party) = 0;
 
 };
 

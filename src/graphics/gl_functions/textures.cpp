@@ -46,7 +46,7 @@ void Textures::load_all()
     // Load textures
     for (size_t textureFileNum = 0; textureFileNum < texturesId.size(); ++textureFileNum)
     {
-        std::string fullPath = std::string("../textures/") + textures_path[textureFileNum];
+        std::string fullPath = std::string(TEXTURE_FOLDER "/") + textures_path[textureFileNum];
         load_texture(fullPath.c_str(), texturesId[textureFileNum]);
         textureNames.emplace_back(textures_path[textureFileNum]);
     }

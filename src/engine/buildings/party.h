@@ -2,10 +2,12 @@
 #pragma once
 
 #include "party_observer.h"
-#include "engine/common.h"
+#include "engine/common/common.h"
 #include "connectors.h"
 
 #include <list>
+#include <set>
+#include <vector>
 #include <memory>
 
 
@@ -50,7 +52,7 @@ class Party : public PartyObservable
 
     struct NodeWithPermission
     {
-        ActiveObjectPermission aoPermission;
+        // ActiveObjectPermission aoPermission;
         Node * node;
     };
 

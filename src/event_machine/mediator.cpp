@@ -1,7 +1,7 @@
 
 #include "mediator.h"
 
-#include "graphics/observers.h"
+#include "event_machine/observers.h"
 #include "engine/core/engine.h"
 
 #include <stdexcept>

@@ -11,13 +11,10 @@
 #include "graphics/gl_functions/gl_initialization.h"
 #include "graphics/tools/draw_fps.h"
 #include "event_machine/event_machine.h"
-#include "graphics/mediator.h"
+#include "event_machine/mediator.h"
 #include "graphics/gl_functions/shader_functions.h"
 #include "engine/core/simple_engine.h"
 #include "graphics/gl_functions/textures.h"
-
-#include "SOIL.h"
-
 
 #define GLM_FORCE_RADIANS
 
@@ -108,7 +105,7 @@ int main()
             // Draw our first triangle
             glUseProgram(shaderProgram);
 
-            rotation += 1;
+            rotation += 0.4;
 
             glm::mat4 trans;
             trans = glm::rotate(trans, glm::radians(rotation), glm::vec3(0.0, 0.0, 1.0));

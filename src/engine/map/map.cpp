@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <algorithm>
 
+#include "engine/buildings/factory.h"
+
 #include <iostream>
 
 
@@ -29,6 +31,15 @@ bool Connectivity::add_new_slot(Slot * slot)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //                               Slot
 
+bool Slot::is_movable()
+{
+    for (const auto & ob : objects)
+        if (!ob->is_movable())
+            return false;
+
+    return true;
+};
+
 bool Slot::add_connect_to_slot(Slot * slot)
 {
     if (connectivity.get() == nullptr)
@@ -37,12 +48,12 @@ bool Slot::add_connect_to_slot(Slot * slot)
     return connectivity->add_new_slot(slot);
 }
 
-void Slot::add_active_object(vehicle::VehicleUnit * obj)
+void Slot::add_active_object(vehicle::Vehicle * obj)
 {
     activeObjects.push_back(obj);
 }
 
-bool Slot::del_active_object(vehicle::VehicleUnit * obj)
+bool Slot::del_active_object(vehicle::Vehicle * obj)
 {
     auto foundIt = std::find(activeObjects.begin(), activeObjects.end(), obj);
 
@@ -62,6 +73,8 @@ bool Slot::del_active_object(vehicle::VehicleUnit * obj)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //                               Map
+
+Map * Map::p_map {nullptr};
 
 Map::Map(size_t i_maxX, size_t i_maxY)
     : maxX { i_maxX }

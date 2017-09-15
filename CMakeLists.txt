@@ -1,77 +1,56 @@
+include(sources.cmake)
+
 cmake_minimum_required(VERSION 2.8)
 
 project(OpenGLgames)
 
+
+#################### Definitions #################################
+
 add_definitions(-std=c++1y -Wall)
 
-# Add SOIL lib
-set (SOIL_include /opt/SOIL/include)
-set (SOIL_libs /opt/SOIL/lib/libSOIL.a)
+# Add predefined variables for:
+#   - Shaders
+#   - Textures
+add_definitions(-DSRC_WITH_SHADERS="${PROJECT_SOURCE_DIR}/src/shaders")
+add_definitions(-DTEXTURE_FOLDER="${PROJECT_SOURCE_DIR}/textures")
+
+
+################### Import libs #####################################
+
+# Import GLEW
+set (GLEW_libs ${PROJECT_SOURCE_DIR}/import/libs/win64/lib/glew32s.lib)
+
+# Import GLFW
+set (GLFW_libs ${PROJECT_SOURCE_DIR}/import/libs/win64/lib/glfw3.lib)
+
+## Add SOIL lib
+#set (SOIL_include /opt/SOIL/include)
+#set (SOIL_libs /opt/SOIL/lib/libSOIL.a)
+set(SOIL_libs ${PROJECT_SOURCE_DIR}/import/libs/win64/lib/SOIL.lib)
 
 # Imported lib
 set (Imported_include ${PROJECT_SOURCE_DIR}/import/include)
 
+
+################## Include #############################################
+
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 
+################### FactoryGL ##########################################
 
-set(SRC src/main.cpp
-
-        src/engine/core/engine.h
-        src/engine/core/simple_engine.h
-        src/engine/core/simple_engine.cpp
-
-        src/engine/tools/tool.h
-        src/engine/tools/calc_fps.h
-        src/engine/tools/calc_fps.cpp
-        
-        src/graphics/gl_functions/gl_initialization.cpp
-        src/graphics/gl_functions/gl_initialization.h
-        src/graphics/gl_functions/keys_actions.h
-        src/graphics/gl_functions/keys_actions.cpp
-
-        src/graphics/gl_functions/shader_functions.h
-        src/graphics/gl_functions/shader_functions.cpp
-
-        src/graphics/gl_functions/textures.h
-        src/graphics/gl_functions/textures.cpp
-
-        src/event_machine/event_machine.h
-        src/event_machine/event_machine.cpp
-        src/event_machine/event_receiver.h
-        src/event_machine/events_list.h
-        
-        src/graphics/mediator.h
-        src/graphics/mediator.cpp
-        src/graphics/observers.h
-        
-        src/graphics/tools/draw_fps.h
-        src/graphics/tools/draw_fps.cpp
-
-        src/engine/map/map.h
-        src/engine/map/map.cpp
-
-        src/engine/vehicles/action_object.h
-        src/engine/vehicles/vehicle.h
-        src/engine/vehicles/vehicle_unit.h
-        src/engine/vehicles/vehicle_unit.cpp
-        
-        )
-
-
-add_executable(FactoryGL ${SRC})
+add_executable(FactoryGL ${FACTORY_GL_SRC} ${FACTORY_GL_HEADER})
+set_target_properties(FactoryGL PROPERTIES LINKER_LANGUAGE CXX)
 
 target_include_directories(FactoryGL PUBLIC ${SOIL_include}
                                             ${Imported_include} )
 
-target_link_libraries(FactoryGL glfw3 
-                                GLEW 
-                                X11 
-                                Xrandr 
-                                Xinerama 
-                                Xcursor 
-                                dl 
-                                GL 
-                                pthread
-                                ${SOIL_libs})
-
+                                            
+                                      
+                                            
+target_link_libraries(FactoryGL opengl32
+                                ${SOIL_libs}
+                                ${GLEW_libs}
+                                ${GLFW_libs})
+                                

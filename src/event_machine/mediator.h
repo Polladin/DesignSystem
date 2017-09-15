@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-#include "graphics/observers.h"
+#include "event_machine/observers.h"
 
 #include "event_machine/event_receiver.h"
 
